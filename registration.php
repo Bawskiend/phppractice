@@ -19,7 +19,7 @@
         $id = mysqli_insert_id($link);
         $_SESSION['auth'] = true;
         $_SESSION['id'] = $id;
-        header('Location: php/profile.php');
+        header('Location: profile.php');
     }
 }
 }else{
