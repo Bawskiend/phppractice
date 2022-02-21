@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,6 +14,5 @@
 		<header>
 			footer
 		</header>
-		<a href="https://mad-dog.ru/podkluchenie-repozitoria-github/">https://mad-dog.ru/podkluchenie-repozitoria-github/</a>
 	</body>
 </html>
