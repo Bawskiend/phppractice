@@ -2,17 +2,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="css/style.css">
 		<title>title</title>
 	</head>
 	<body>
-		<header>
-			header
-		</header>
-		<main>
-			{{ content }}
+		<header class="header"></header>
+		<main class="main">
+		<div class="app-container">
+		{{ content }}
+		</div>
 		</main>
-		<header>
-			footer
-		</header>
+		<footer class="footer"></footer>
 	</body>
 </html>
