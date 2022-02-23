@@ -20,9 +20,6 @@ if($_SESSION['auth'] and !empty($_GET)){
   $result = mysqli_query($link,$query) or die(mysqli_error($link));
   $user = mysqli_fetch_assoc($result);
   $_SESSION['name'] = $user['name'];
-  echo $user['name'] . '<br>';
-  echo $user['surname'] . '<br>';
-  echo $user['age'] . '<br>';
 }
 ?>
 <a href="changePassword.php">сменить пароль</a><br>
