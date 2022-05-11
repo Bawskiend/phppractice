@@ -1,9 +1,7 @@
 <?php
 session_start();
 if($_SESSION['auth'] == true){
-    echo 'авторизация успешна' . '<br>';
-    echo $_SESSION['auth'] . '<br>';
-    echo $_SESSION['id'];
+    
     ?>
 <meta charset="UTF-8">
 <!DOCTYPE html>
@@ -25,7 +23,7 @@ if($_SESSION['auth'] == true){
         <li>два</li>
         <li>три</li>
     </ul>
-    <a href="logout.php">Выйти</a>
+    <a href="logout">Выйти</a>
 </div>
 
 </body>
