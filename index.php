@@ -17,7 +17,6 @@
         $header = 'php/header.php';
         $content = 'php/404.php';
     }
-
         ?>
 <html>
     <meta charset="UTF-8">
