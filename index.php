@@ -1,30 +1,44 @@
 <?php
+    session_start();
     $url = $_SERVER['REQUEST_URI'];
-    $path = 'php' . $url . '.php';
-    $path = str_replace('\\','./',$path);
-    if(file_exists($path)){
-        $layout = file_get_contents('php\layout.php');
-        $content = file_get_contents($path);
-        $layout = str_replace('{{ content }}', $content, $layout);    
-        echo $layout;
-        }
-    else{
-        $layout = file_get_contents('php\layout.php');
-        $content = file_get_contents('php\404.php');
-        $layout = str_replace('{{ content }}', $content, $layout);
-        echo $layout;
+    function rgp($url) { 
+        return preg_replace('/^([^?]+)(\?.*?)?(#.*)?$/', '$1$3', $url);
     }
-        ?> 
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="css/style.css">
-            <title>Document</title>
-        </head>
-        <body>
-            
-        </body>
-        </html>
+    $url = rgp($url);
+    if($url == '' or $url == '/'){
+        header('Location: mainpage');
+    }
+    $content = 'php' . $url . '.php';
+    if(file_exists($content)){
+        $header = 'php/header.php';
+        ob_start();
+    }
+    elseif(!file_exists($content)){
+        $header = 'php/header.php';
+        $content = 'php/404.php';
+    }
+
+        ?>
+<html>
+    <meta charset="UTF-8">
+    <head>
+		<title>title</title>
+		<link rel="stylesheet" href="css/style.css">
+        <?php if($url == '/login'){
+            echo "<script src='/js/script.js'></script>";
+        } ?>
+	</head>
+	<body>
+		<header class="header">
+           <?php include_once $header ?>
+            </header>
+            <main class="app-container">
+			<?php include_once $content?>
+		</div>
+		</main>
+		<footer class="footer">
+        <? //include_once $footer?> 
+			
+		</footer>
+	</body>
+</html>         
