@@ -1,4 +1,5 @@
 <?php
+    echo '123';
     if(!empty($_POST['login'] and !empty($_POST['password']))){
     $login = $_POST['login'];
     $firstconfirm = $_POST['password'];

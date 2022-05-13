@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
     session_start();
     $url = $_SERVER['REQUEST_URI'];
     function rgp($url) { 
