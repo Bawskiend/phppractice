@@ -1,14 +1,31 @@
 <?php
-   class Employee{
-      public $name;
-      public $surname;
-      public $salary;
-      public function __constructor($name,$surname,$salary){
-         $this->name = $name;
-         $this->surname = $surname;
-         $this->salary = $salary;
+   	class User
+      {
+         private $name;
+         private $age;
+         
+         public function __construct($name, $age)
+         {
+            $this->name = $name;
+            $this->age = $age;
+         }
+         
+         // Реализуем указанный метод:
+         public function __toString()
+         {
+            return $this->name;
+         }
+         
+         public function getName()
+         {
+            return $this->name;
+         }
+         
+         public function getAge()
+         {
+            return $this->age;
+         }
       }
-   }
-   $employee1 = new Employee('john','mitch',2400);
-   var_dump($employee1);
+      $user = new User('john', 25);
+	echo $user; // выведет 'john' - все работает!
 ?>
