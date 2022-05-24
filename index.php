@@ -1,53 +1,67 @@
 <?php
-    	abstract class User{
-            private $name;
-            public function SetName($name){
-                $this->name = $name;
-            }
-            public function GetName(){
-                return $this->name;
-            }
-            abstract public function increaseRevenue(){
-
-            }
-        }
-<<<<<<< HEAD
-        class Employee extends User{
-            private $salary;
-            public function SetSalary($salary){
-                $this->salary = $salary;
-            }
-            public function GetSalary(){
-                return $this->salary;
-            }
-            public function increaseRevenue($salary){
-                $this->$salary = $this->salary + $salary;
-            }
-        }
-        $employee1 = new Employee;
-        $employee1->SetName('john');
-        echo $employee1->GetName();
-?>
-
-=======
-    else{
-        $layout = file_get_contents('php\layout.php');
-        $content = file_get_contents('php\404.php');
-        $layout = str_replace('{{ content }}', $content, $layout);
-        echo $layout;
+  // interface iFile
+	// {
+  //   public function __construct($filePath);
+		
+	// 	public function getPath(); // путь к файлу
+	// 	public function getDir();  // папка файла
+	// 	public function getName(); // имя файла
+	// 	public function getExt();  // расширение файла
+	// 	public function getSize(); // размер файла
+		
+	// 	public function getText();          // получает текст файла
+	// 	public function setText($text); 
+  //   // устанавливает текст файла 
+	// 	public function appendText($text); 
+  //   // добавляет текст в конец файла 
+		
+	// 	public function copy($copyPath); 
+  //   // копирует файл 
+	// 	public function delete();           // удаляет файл
+	// 	public function rename($newName); 
+  //   // переименовывает файл 
+	// 	public function replace($newPath); 
+  //   // перемещает файл 
+	// }
+  // class File implements iFile{
+  //   private $filePath;
+  //   public function __construct($filePath){
+  //     $this->filePath = $filePath;
+  //   }
+  //   public function getPath(){
+  //     return $this->filePath;
+  //   }
+  //   public function getDir(){
+  //     return 0;
+  //   }
+  //     public function getName(){
+        
+  //     }
+  //   }
+class Tag {
+  private $name;
+  private $attrs;
+  public function __construct($name,$attrs){
+    $this->name = $name;
+    $this->attrs = $attrs;
+  }
+  public function openTag(){
+    $name = $this->name;
+    $attrsStr = $this->getAttrsStr($this->attrs);
+    return "<$name$attrsStr>";
+  }
+  public function getAttrsStr($attrs){
+    foreach($attrs as $name => $value){
+      return "$name = " . "$value";
     }
-        ?> 
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="css/style.css">
-            <title>Document</title>
-        </head>
-        <body>
-            
-        </body>
-        </html>
->>>>>>> b471334fbb4762d09ba730413f65f469303a0a99
+  }
+  public function closeTag(){
+    $name = $this->name;
+    return "</$name>";
+  }
+}
+$header = new Tag('input', ['id' => 'test', 
+'class' => 'eee bbb']);
+var_dump($header);
+  ?>   
+
