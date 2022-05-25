@@ -1,113 +1,35 @@
 <?php
-class Date
-{
-    private $date;
-    public function __construct($date 
-        = null) 
-    {
-        if($date != null){
-            $this->date = strtotime($date);
-        }
-        else{
-            $this->date = time('Y-m-d');
-        }
-    }
-    public function getDate(){
-        return $this->date;
-    }
-    public function getDay()
-    {
-        echo date('w', $this->date);
-        return (int) date('w', $this->date);
-    }
-    
-    public function getMonth($lang = 'ru')
-    {
-        $rumonths = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
-        $enmonths = ['january','february','march','april','may','june','july','august','september','october','november','december'];
-        if($lang != null){
-            $month = (int) date('n',$this->date);
-            if($lang = 'ru'){
-                return $rumonths[$month - 1];
-                // return $rumonths[date('n',strtotime($this->date))];
-            }
-            else if($lang = 'en'){
-                return $enmonths[$month - 1];
-            }
-        }else{
-            return 'не выбран язык';
-        }
-    }
-    
-    public function getYear()
-    {
-        return date('Y',$this->date);
-    }
-    
-    public function getWeekDay($lang 
-        = null) 
-    {
-        $ruweeks = ['Понедельник','вторник','среда','четверг','пятница','суббота','воскрeсенье'];
-        $enweeks = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-        if($lang != null){
-            $weekday = (int) date('w',$this->date);
-            if($lang = 'ru'){
-                return $ruweeks[$weekday];
-            }
-            else if($lang = 'en'){
-                return $enweeks[$weekday];
-            }
-        }else{
-            return 'не выбран день недели';
-        }
-    }
-    
-    public function addDay($value)
-    {
-        // добавляет значение $value к дню
-    }
-    
-    public function subDay($value)
-    {
-        // отнимает значение $value от дня
-    }
-    
-    public function addMonth($value)
-    {
-        // добавляет значение $value к месяцу
-    }
-    
-    public function subMonth($value)
-    {
-        // отнимает значение $value от 
-            // месяца 
-    }
-    
-    public function addYear($value)
-    {
-        // добавляет значение $value к году
-    }
-    
-    public function subYear($value)
-    {
-        // отнимает значение $value от года
-    }
-    
-    public function format($format)
-    {
-        // выведет дату в указанном 
-            //   формате 
-        // формат пусть будет такой же, 
-            // как в функции date 
-    }
-    
-    public function __toString()
-    {
-        // выведет дату в формате 
-            //   'год-месяц-день' 
-    }
-}
-$date = new Date('2025-12-31');
-echo $date->getYear() . '<br>';  // выведет '2025'
-echo $date->getMonth() . '<br>'; // выведет '12'
-echo $date->getDay() . '<br>';   // выведет '31'
+	namespace Core;
+	
+	error_reporting(E_ALL);
+	ini_set('display_errors', 'on');
+	
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/project/config/connection.php';
+	
+	spl_autoload_register(function($class) {
+		preg_match('#(.+)\\\\(.+?)$#', $class, $match);
+		
+		$nameSpace = str_replace('\\', DIRECTORY_SEPARATOR, strtolower($match[1]));
+		$className = $match[2];
+		
+		$path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $nameSpace . DIRECTORY_SEPARATOR . $className . '.php';
+		
+		if (file_exists($path)) {
+			require_once $path;
+			
+			if (class_exists($class, false)) {
+				return true;
+			} else {
+				throw new \Exception("Класс $class не найден в файле $path. Проверьте правильность написания имени класса внутри указанного файла.");
+			}
+		} else {
+			throw new \Exception("Для класса $class не найден файл $path. Проверьте наличие файла по указанному пути. Убедитесь, что пространство имен вашего класса совпадает с тем, которое пытается найти фреймворк для данного класса. Например, вы создаете класса модели, но забыли заюзать ее через use. В этом случае вы пытаетесь вызвать класс модели в пространстве имен контроллера, а такого файла нет.");
+		}
+	});
+	
+	$routes = require $_SERVER['DOCUMENT_ROOT'] . '/project/config/routes.php';
+	
+	$track = ( new Router )      -> getTrack($routes, $_SERVER['REQUEST_URI']);
+	$page  = ( new Dispatcher )  -> getPage($track);
+	
+	echo (new View) -> render($page);
